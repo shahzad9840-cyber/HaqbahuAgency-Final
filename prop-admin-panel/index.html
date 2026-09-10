@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prop Admin Panel</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">🏠</span>
+      <span class="brand-text">Prop Admin</span>
+    </div>
+    <p class="header-tag">Listings manager</p>
+  </div>
+</header>
+
+<!-- SECTION: PASSWORD LOCK SCREEN -->
+<div class="lock" id="lock">
+  <div class="lock-card wrap">
+    <span class="lock-mark" aria-hidden="true">🔒</span>
+    <h2 class="lock-title">Prop Admin</h2>
+    <p class="lock-text">Panel kholne ke liye password daaliye.</p>
+    <form class="lock-form" id="lockForm" autocomplete="off">
+      <label class="field">
+        <span class="field-label">Password</span>
+        <input class="input" id="lockInput" type="password" inputmode="text" placeholder="Password" aria-label="Password" required>
+      </label>
+      <p class="lock-error" id="lockError" role="alert" hidden>Galat password. Dobara koshish kijiye.</p>
+      <button class="btn" id="lockBtn" type="submit">Unlock</button>
+      <a class="btn" id="forgotBtn" href="mailto:support@example.com?subject=Set%20Password%20Help">Forgot Password</a>
+    </form>
+
+    <form class="lock-form" id="setPassForm" autocomplete="off" hidden>
+      <input class="input" id="setPassInput" type="password" placeholder="New password" aria-label="New password" required>
+      <input class="input" id="setPassConfirm" type="password" placeholder="Confirm new password" aria-label="Confirm new password" required>
+      <button class="btn" id="setPassSave" type="submit">Save Password</button>
+      <p class="lock-error" role="alert" hidden></p>
+    </form>
+  </div>
+</div>
+
+<div id="app">
+<main class="wrap">
+
+  <!-- SECTION: CATEGORY TABS -->
+  <section class="tabs-section" aria-label="Property category">
+    <div class="tabs" role="tablist">
+      <button class="tab is-active" type="button" role="tab" aria-selected="true" data-category="rent">Rent</button>
+      <button class="tab" type="button" role="tab" aria-selected="false" data-category="commercial">Commercial</button>
+    </div>
+  </section>
+
+  <!-- SECTION: UPLOAD FORM -->
+  <section class="panel" id="upload" aria-labelledby="upload-title">
+    <h2 class="panel-title" id="upload-title">Add a property</h2>
+    <p class="panel-sub">Photo, price aur location bhar ke listing save karo.</p>
+
+    <form class="form" id="uploadForm">
+      <div class="field">
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" placeholder="2 BHK near Metro Station" required>
+      </div>
+
+      <div class="field">
+        <label for="category">Category</label>
+        <select id="category" name="category">
+          <option value="rent">Rent</option>
+          <option value="commercial">Commercial</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="price">Price (per month)</label>
+        <input type="number" id="price" name="price" inputmode="numeric" placeholder="18000" required>
+      </div>
+
+      <div class="field">
+        <label for="location">Location</label>
+        <input type="text" id="location" name="location" placeholder="Andheri East, Mumbai" required>
+      </div>
+
+      <div class="field">
+        <label for="area">Area (sq ft)</label>
+        <input type="number" id="area" name="area" inputmode="numeric" placeholder="850">
+      </div>
+
+      <div class="field">
+        <label for="type">Property type</label>
+        <select id="type" name="type">
+          <option value="">Select type</option>
+          <option value="Flat">Flat</option>
+          <option value="House">House</option>
+          <option value="Shop">Shop</option>
+          <option value="Office">Office</option>
+          <option value="Godown">Godown</option>
+        </select>
+      </div>
+
+      <div class="field" data-cat="rent">
+        <label for="bedrooms">Bedrooms</label>
+        <input type="number" id="bedrooms" name="bedrooms" inputmode="numeric" min="0" placeholder="2">
+      </div>
+
+      <div class="field" data-cat="rent">
+        <label for="kitchens">Kitchens</label>
+        <input type="number" id="kitchens" name="kitchens" inputmode="numeric" min="0" placeholder="1">
+      </div>
+
+      <div class="field">
+        <label for="address">Full address</label>
+        <input type="text" id="address" name="address" placeholder="Flat 402, Sunrise Apartments, Andheri East">
+      </div>
+
+      <div class="field">
+        <label for="photo">Photo</label>
+        <input type="file" id="photo" name="photo" accept="image/*">
+      </div>
+
+      <div class="field">
+        <label for="notes">Notes</label>
+        <textarea id="notes" name="notes" placeholder="Furnished, 2nd floor, parking available"></textarea>
+      </div>
+
+      <button class="btn" type="submit">Save listing</button>
+    </form>
+  </section>
+
+  <!-- SECTION: PREVIEW GRID -->
+  <section class="panel" id="listings" aria-labelledby="listings-title">
+    <h2 class="panel-title" id="listings-title">Preview</h2>
+    <p class="panel-sub" id="listingsCount">Abhi koi listing nahi hai.</p>
+    <div class="grid" id="previewGrid"></div>
+    <p class="empty" id="emptyState">Saved listings yahan dikhengi.</p>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-inner">
+    <p>Prop Admin Panel</p>
+    <nav class="footer-links">
+      <a href="#upload">Add</a>
+      <a href="#listings">Listings</a>
+    </nav>
+  </div>
+</footer>
+</div>
+
+<!-- MODAL -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-head">
+      <h3 class="modal-title" id="modalTitle">Listing</h3>
+      <button class="modal-close" type="button" id="modalClose" aria-label="Close">×</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
