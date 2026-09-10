@@ -1,0 +1,8 @@
+[REQUEST LINES 280-400] modal + lock + empty + focus area
+[REQUEST LINES 440-580] lock-error + transitions + reduced-motion
+
+img { max-width: 100%; height: auto; display: block; }
+
+@media (min-width: 720px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+}
